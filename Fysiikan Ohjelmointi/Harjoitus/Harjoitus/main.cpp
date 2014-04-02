@@ -9,6 +9,7 @@ using namespace std;
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1200,720), "Hello World!");
+	SceneHandler::init();
 	Scene::windowSize = window.getSize();
 	cout << "Debug works!" << endl;
 	sf::Clock clock;
@@ -62,6 +63,7 @@ int main()
 			SceneHandler::draw(window);
 			window.display();
 	}
+	SceneHandler::deinit();
 
 	return 0;
 }

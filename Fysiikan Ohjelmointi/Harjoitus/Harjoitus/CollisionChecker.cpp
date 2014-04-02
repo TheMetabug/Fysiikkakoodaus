@@ -1,6 +1,6 @@
 #include "CollisionChecker.h"
 #include <cassert>
-
+#include <cmath>
 
 CollisionChecker::CollisionChecker(void)
 {
@@ -39,18 +39,26 @@ void CollisionChecker::applyPhysics()
 	for(int i = 0; collisionList2.size() > i; i++)
 	{
 		if (collisionList2[i].size() > 1)
-			assert(false);
+		{
+			//assert(false);
+		}
 		const Collision& C = collisionList2[i][0];
 		// jokaiselle kollisionille siirretään pallot erikseen 
 		//(CombRad - ADif) /2 siirtää kumpaakin palloa erilleen toisistaan
 		// muokkaa nykyisen pallon suuntavektoria
-		float difVector =	(C.A->position.x - C.B->position.x)/C.ADif;
-		C.A->position.x +=	((C.CombRad - C.ADif)/2)*difVector;
-		C.B->position.x -=	((C.CombRad - C.ADif)/2)*difVector;
+		sf::Vector2f difVector = (C.A->position - C.B->position)/C.ADif;
+		float difVectorY =	(C.A->position.y - C.B->position.y)/C.ADif;
+
+		C.A->position += ((C.CombRad - C.ADif)/2)*difVector;
+		C.B->position -= ((C.CombRad - C.ADif)/2)*difVector;
 		
-		C.A->velocity.x = (C.vA.x*(C.A->radius - C.B->radius) + 2.f*C.B->radius*C.vB.x)/(C.A->radius + C.B->radius);
-		C.B->velocity.x = (C.vB.x*(C.B->radius - C.A->radius) + 2.f*C.A->radius*C.vA.x)/(C.A->radius + C.B->radius);
-		//////////////////////////
+		//Pallojen massa laskettuna r:n mukaan
+		float Am = 4*3.14159*pow(C.A->radius,3)/3;
+		float Bm = 4*3.14159*pow(C.B->radius,3)/3;
+		//Palloille asetetaan uusi suunta ja nopeus
+		C.A->velocity = (C.vA*(Am - Bm) + 2.f*Bm*C.vB)/(Am + Bm);
+		C.B->velocity = (C.vB*(Bm - Am) + 2.f*Am*C.vA)/(Am + Bm);
+
 	}
 	collisionList2.clear();
 
@@ -60,9 +68,10 @@ void CollisionChecker::CheckCol(Ball* ballA, Ball* ballB)
 {
 	const sf::CircleShape A = ballA->shape;
 	const sf::CircleShape B = ballB->shape;
-	const float xDif = A.getPosition().x - B.getPosition().x;
+	const float xDif = ballA->position.x - ballB->position.x;
+	const float yDif = ballA->position.y - ballB->position.y;
 	const float CombRad = A.getRadius() + B.getRadius();
-	const float ADif = sqrt(pow(xDif,2)/*+pow(yDif,2)*/);
+	const float ADif = sqrt(pow(xDif,2) + pow(yDif,2));
 
 	
 	if(ADif < CombRad)

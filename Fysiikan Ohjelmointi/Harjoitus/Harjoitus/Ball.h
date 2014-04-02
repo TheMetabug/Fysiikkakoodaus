@@ -1,3 +1,8 @@
+/* Ball.h
+*Tämä on luokka, joka luo
+* 
+*
+*/
 #pragma once
 #include <SFML/Graphics.hpp>
 //#include "Scene.h"
