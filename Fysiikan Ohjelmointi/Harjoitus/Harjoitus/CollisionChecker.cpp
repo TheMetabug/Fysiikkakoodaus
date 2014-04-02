@@ -59,6 +59,8 @@ void CollisionChecker::applyPhysics()
 		C.A->velocity = (C.vA*(Am - Bm) + 2.f*Bm*C.vB)/(Am + Bm);
 		C.B->velocity = (C.vB*(Bm - Am) + 2.f*Am*C.vA)/(Am + Bm);
 
+		/*C.A->velocity = */
+
 	}
 	collisionList2.clear();
 

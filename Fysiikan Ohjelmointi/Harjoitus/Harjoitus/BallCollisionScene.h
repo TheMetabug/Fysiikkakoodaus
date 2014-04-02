@@ -29,5 +29,7 @@ public:
 	sf::Clock clock;
 	CollisionChecker collision;
 
+	sf::Vector2f tan;
+
 };
 
