@@ -8,6 +8,9 @@
 #include "Scene.h"
 #include "Ball.h"
 #include "CollisionChecker.h"
+#include <vector>
+
+#define BALLS 10
 
 class BallCollisionScene : public Scene
 {
@@ -28,8 +31,6 @@ public:
 	sf::Time time;
 	sf::Clock clock;
 	CollisionChecker collision;
-
-	sf::Vector2f tan;
-
+	std::vector<Ball*> balls;
 };
 

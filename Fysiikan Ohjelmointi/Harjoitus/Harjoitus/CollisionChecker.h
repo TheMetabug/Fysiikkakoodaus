@@ -12,12 +12,13 @@
 struct Collision
 {
 	//Tehdään collisionille omia muuttujia
-	Collision(Ball* a, Ball* b, float CombR, float Ad)
+	Collision(Ball* a, Ball* b, float CombR, float Ad, sf::Vector2f DifVec)
 	{
 		A = a;
 		B = b;
 		vA = a->velocity;
 		vB = b->velocity;
+		DifVector = DifVec;
 		CombRad = CombR;
 		ADif = Ad;
 	}
@@ -27,6 +28,7 @@ struct Collision
 	Ball* B;
 	sf::Vector2f vB;
 
+	sf::Vector2f DifVector;
 	float CombRad, ADif;
 };
 
@@ -41,7 +43,7 @@ public:
 	//Tyhjentää ball objektit listasta
 	void clearBallList();
 	//Collisionin "update" joka tarkastaa koskeeko pallot toisiinsa
-	void applyPhysics();
+	void applyPhysics(float dt);
 private:
 	//Luodaan ball:ille ja collision:ille vektorit.
 	//collisionille luodaan kaksi, jolloin voidaan tarkastaa
@@ -51,5 +53,7 @@ private:
 	std::vector<std::vector<Collision>> collisionList2;
 	//privaatti törmäyksen tarkastus luokka
 	void CheckCol(Ball* A, Ball* B);
-
+	void CheckWallCol(Ball* );
+	sf::Vector2f tan;
+	float Av_tan, tan_tan, Bv_tan, norm_norm;
 };
