@@ -38,7 +38,7 @@ void CollisionChecker::applyPhysics(float dt)
 		CheckWallCol((*it));
 		(*it)->velocity.y += (*it)->g*dt;///2;
 	}
-	std::cout<<"point 1 : "<<clock.restart().asMicroseconds()<<std::endl;
+	//std::cout<<"point 1 : "<<clock.restart().asMicroseconds()<<std::endl;
 	//aluksi lisätään collisionList2:seen collision
 	collisionList2.push_back(collisionList);
 	//tarkistetaan pallojen törmäys, jossa i on törmäävä pallo
@@ -55,7 +55,7 @@ void CollisionChecker::applyPhysics(float dt)
 	}
 	collisionList2.pop_back();
 	
-	std::cout<<"point 2 : "<<clock.restart().asMicroseconds()<<std::endl;
+	//std::cout<<"point 2 : "<<clock.restart().asMicroseconds()<<std::endl;
 
 	for(int i = 0; collisionList2.size() > i; i++)
 	{
@@ -114,28 +114,28 @@ void CollisionChecker::CheckCol(Ball* ballA, Ball* ballB)
 	clock.restart();
 	//nimetään kappaleet A:ksi ja B:ksi
 	const sf::Vector2f posA = ballA->position;
+	const sf::Vector2f velA = ballA->velocity;
 	const float radA = ballA->shape.getRadius();
+	const sf::Vector2f posB = ballB->position;
+	const sf::Vector2f velB = ballB->velocity;
+	const float radB = ballB->shape.getRadius();
 
-
-
-	const sf::CircleShape& A = ballA->shape;
-	const sf::CircleShape& B = ballB->shape;
 	//Lasketaan niiden x ja y suuntainen etäisyys 2D avaruudessa
-	const sf::Vector2f DifVector = posA - ballB->position;
+	const sf::Vector2f DifVector = posA - posB;
 	//lasketaan x ja y eroista pituusvektori
 	const float ADif = sqrt(pow(DifVector.x,2) + pow(DifVector.y,2));
 	//Lasketaan pallojen yhteen laskettu säde
-	const float CombRad = radA + B.getRadius();
+	const float CombRad = radA + radB;
 	
-	std::cout<<"check 1 : "<<clock.restart().asMicroseconds()<<std::endl;
+	//std::cout<<"check 1 : "<<clock.restart().asMicroseconds()<<std::endl;
 	//katsotaan onko etäisyysvektori pienempi kuin pallojen
 	//yhteisen säteen pituus, jos on niin törmäys on tapahtunut
 	if(ADif < CombRad)
 	{
 		//kun törmäys on tapahtunut, lisätään tiedot törmäyksestä collisionList2:lle
-		collisionList2.back().push_back(Collision(ballA, ballB,CombRad, ADif, DifVector));
+		collisionList2.back().push_back(Collision(ballA, ballB,CombRad, ADif, DifVector, velA, velB));
 	}
-	std::cout<<"check 2 : "<<clock.restart().asMicroseconds()<<std::endl;
+	//std::cout<<"check 2 : "<<clock.restart().asMicroseconds()<<std::endl;
 
 }
 

@@ -12,16 +12,15 @@
 struct Collision
 {
 	//Tehdään collisionille omia muuttujia
-	Collision(Ball* a, Ball* b, float CombR, float Ad, sf::Vector2f DifVec)
-	{
-		A = a;
-		B = b;
-		vA = a->velocity;
-		vB = b->velocity;
-		DifVector = DifVec;
-		CombRad = CombR;
-		ADif = Ad;
-	}
+	Collision(Ball* a, Ball* b, float CombR, float Ad, sf::Vector2f DifVec, sf::Vector2f VelA, sf::Vector2f VelB)
+		: A(a),
+		  B(b),
+		  DifVector(DifVec),
+		  CombRad(CombR),
+		  ADif(Ad),
+		  vA(VelA),
+		  vB(VelB)
+	{}
 	//Määritetään pallot A,B ja niiden nopeudet.
 	Ball* A;
 	sf::Vector2f vA;
@@ -53,7 +52,7 @@ private:
 	std::vector<std::vector<Collision>> collisionList2;
 	//privaatti törmäyksen tarkastus luokka
 	void CheckCol(Ball* A, Ball* B);
-	void CheckWallCol(Ball* );
+	void CheckWallCol(Ball*);
 	sf::Vector2f tan;
 	float Av_tan, tan_tan, Bv_tan, norm_norm;
 };
