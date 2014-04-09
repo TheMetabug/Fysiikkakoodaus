@@ -24,7 +24,7 @@ Ball::~Ball(void)
 
 void Ball::Update(float dt, sf::Vector2f borderSize)
 {
-	/// Y MOVEMENT ///
+	/// Y suuntainen seinän törmäys tarkistus ///
 	if(position.y > (borderSize.y-shape.getRadius())) // If touch ground
 	{
 		ColY(-e,borderSize.y-shape.getRadius());
@@ -32,7 +32,7 @@ void Ball::Update(float dt, sf::Vector2f borderSize)
 	else
 	{
 	}
-	/// X MOVEMENT ///
+	/// X suuntainen seinän törmäys tarkistus ///
 	if(position.x > (borderSize.x-shape.getRadius())) // If hits left border
 	{
 		ColX(-e, borderSize.x-shape.getRadius()); 
@@ -50,41 +50,25 @@ void Ball::Update(float dt, sf::Vector2f borderSize)
 
 void Ball::Draw(sf::RenderWindow &window)
 {
+	//piirretään shape eli pallo ruudulle
 	window.draw(shape);
-}
-
-void Ball::CheckCol(Ball* otherBall)
-{
-	//const sf::CircleShape A = shape;
-	//const sf::CircleShape B = otherBall->shape;
-	//float xDif = A.getPosition().x - B.getPosition().x;
-	//float CombRad = A.getRadius() + B.getRadius();
-	//float ADif = sqrt(pow(xDif,2)/*+pow(yDif,2)*/);
-
-	//if(ADif < CombRad)
-	//{return true;
-	//}
 }
 
 void Ball::ColX(float I, float X)
 {
+	//kerrotaan kimmoisuuskertoimella
 	velocity.x *= I;
+	//ja asetetaan positio
 	position = sf::Vector2f(X,shape.getPosition().y);
 	shape.setPosition(position);
 }
 
 void Ball::ColY(float I, float Y)
 {
+	//kerrotaan kimmoisuus- ja kitkakertoimella
 	velocity.y *= I;
+	velocity.x *= f;
+	//ja asetetaan positio
 	position = sf::Vector2f(shape.getPosition().x, Y);
 	shape.setPosition(position);
-	velocity.x *= f;
-}
-
-float Ball::ColMath(float u1, float m1, float u2, float m2)
-{
-	float v1 = (u1*(m1-m2)+(2*m2*u2))/(m1+m2);
-	//float v2 = (u2*(m2-m1)+(2*m1*u1))/(m1+m2);
-
-	return v1;
 }

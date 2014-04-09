@@ -1,3 +1,8 @@
+/* Scene.h
+*Virtuaali luokka, mit‰ skenet
+*k‰ytt‰v‰t. Sis‰lt‰‰ kaiken mit‰
+*skene tarvitsee.
+*/
 #pragma once
 
 #include <SFML/Graphics.hpp>

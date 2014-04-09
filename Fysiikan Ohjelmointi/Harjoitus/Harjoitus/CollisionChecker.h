@@ -52,7 +52,9 @@ private:
 	std::vector<std::vector<Collision>> collisionList2;
 	//privaatti törmäyksen tarkastus luokka
 	void CheckCol(Ball* A, Ball* B);
+	//privaatti seinän törmäyksen tarkastus luokka
 	void CheckWallCol(Ball*);
+	//tangentti ja normaali
 	sf::Vector2f tan;
 	float Av_tan, tan_tan, Bv_tan, norm_norm;
 };

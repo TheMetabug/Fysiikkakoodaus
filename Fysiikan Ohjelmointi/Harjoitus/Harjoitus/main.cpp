@@ -8,6 +8,7 @@ using namespace std;
 
 int main()
 {
+	//luodaan ikkuna
 	sf::RenderWindow window(sf::VideoMode(1200,720), "Hello World!");
 	SceneHandler::init();
 	Scene::windowSize = window.getSize();
@@ -31,15 +32,15 @@ int main()
 				if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 					window.close();
 				break;
-
+				//Saadaan fokus ikkunaan takaisin
 			case sf::Event::GainedFocus:
 				cout << "Gained focus." << endl;
 				break;
-
+				//Menetetään fokus ikkunaan
 			case sf::Event::LostFocus:
 				cout << "Lost focus." << endl;
 				break;
-
+				//Ruudun koon vaihtuminen
 			case sf::Event::Resized:
 				cout << "New width: "<< event.size.width << endl;
 				cout << "New heigth: "<< event.size.height << endl;
@@ -47,7 +48,7 @@ int main()
 
 			case sf::Event::TextEntered:
 				if (event.text.unicode < 128)
-					cout << "Letter: " << static_cast<char>(event.text.unicode) << endl;
+					//cout << "Letter: " << static_cast<char>(event.text.unicode) << endl;
 				break;
 
 			default:
@@ -56,9 +57,10 @@ int main()
 
 			}
 		}
+		//päivitetään skenehandleria
 			sf::Time t = clock.restart();
 			SceneHandler::update(t.asSeconds());
-
+		//piirtokutsuja
 			window.clear();
 			SceneHandler::draw(window);
 			window.display();

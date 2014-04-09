@@ -1,4 +1,10 @@
+/* SceneHandler.h
+*Scene Handler yll‰pit‰‰
+*skenej‰ ja vaihtaa ne 
+*k‰ytt‰j‰n inputin mukaan
+*/
 #pragma once
+
 
 #include <SFML/Graphics.hpp>
 

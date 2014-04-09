@@ -11,14 +11,15 @@ float SceneHandler::time = 0.0f;
 
 void SceneHandler::init()
 {
+	//luodaan fontti ja texti
 	font = new sf::Font();
 	text = new sf::Text();
-
+	//ladataan fonttitiedosto
 	if(!font->loadFromFile("font.ttf"))
 	{
 		std::cout << "Could not read font file!" << std::endl;
 	}
-
+	//asetetaan tekstille arvoja
 	text->setFont(*font);
 	text->setCharacterSize(24);
 	text->setColor(sf::Color::White);
@@ -32,6 +33,7 @@ void SceneHandler::deinit()
 
 void SceneHandler::update(double dt)
 {
+	//Skeneä vaihdetaan F nappeja painamalla, ja teksti vaihtuu skenejen mukana
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F1) && lastScene != 1) || lastScene == -1)
 	{
 		curScene = new BallDropScene();
@@ -50,12 +52,14 @@ void SceneHandler::update(double dt)
 		text->setString("Press key to change scene:  F1   F2  [F3]         Pallon tormays"); 
 		lastScene = 3;
 	}
+	//SPACE näppäin hidastaa aikaa
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
 		dt /= 10;
 	const float timestep = 0.01f;
 	time += dt;
 	if (time >= timestep)
 	{
+		//pakotetaan sovellus pyörimään halutulla nopeudella
 		time = 0.0f;
 		curScene->Update(timestep);
 	}
@@ -63,7 +67,9 @@ void SceneHandler::update(double dt)
 
 void SceneHandler::draw(sf::RenderWindow &window)
 {
+	//piirretään skene ruudulle
 	curScene->Draw(window);
+	//ja teksti
 	window.draw(*text);
 }
 

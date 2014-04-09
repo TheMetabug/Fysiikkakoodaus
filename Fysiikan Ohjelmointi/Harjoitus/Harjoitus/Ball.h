@@ -1,11 +1,10 @@
 /* Ball.h
 *Tämä on luokka, joka luo
-* 
-*
+*itsenäisen pallon, jolla on 
+*hieman fysiikkaa
 */
 #pragma once
 #include <SFML/Graphics.hpp>
-//#include "Scene.h"
 class Ball
 {
 public:
@@ -29,8 +28,6 @@ public:
 
 	void Update(float dt, sf::Vector2f borderSize);
 	void Draw(sf::RenderWindow &window);
-	void CheckCol(Ball* otherball);
-	float ColMath(float u1, float m1, float u2, float m2);
 	void ColX(float impact, float X);
 	void ColY(float impact, float Y);
 	void CheckWalls();

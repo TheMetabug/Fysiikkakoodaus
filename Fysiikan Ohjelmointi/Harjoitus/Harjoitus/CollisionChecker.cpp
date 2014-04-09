@@ -30,15 +30,11 @@ void CollisionChecker::clearBallList()
 
 void CollisionChecker::applyPhysics(float dt)
 {
-	sf::Clock clock;
-	clock.restart();
-	/*collisionList2.push_back(std::vector<Collision>());*/
 	for(auto it = ballList.begin(); it != ballList.end(); it++)	//käydään listaa palloista läpi
 	{
-		CheckWallCol((*it));
-		(*it)->velocity.y += (*it)->g*dt;///2;
+		CheckWallCol((*it)); // tarkistetaan seinän kanssa törmäys
+		(*it)->velocity.y += (*it)->g*dt; // gravitaatio
 	}
-	//std::cout<<"point 1 : "<<clock.restart().asMicroseconds()<<std::endl;
 	//aluksi lisätään collisionList2:seen collision
 	collisionList2.push_back(collisionList);
 	//tarkistetaan pallojen törmäys, jossa i on törmäävä pallo
@@ -71,26 +67,31 @@ void CollisionChecker::applyPhysics(float dt)
 		}
 		//Tehdään ensimmäisestä törmäyksestä C muuttuja
 		const Collision& C = collisionList2[i][0];
+
 		//Lasketaan pallojen välinen etäisyysvektori
 		const sf::Vector2f difVector = C.DifVector;
+
 		//Muokkataan nykyisen pallon suuntavektoria
 		//Jokaiselle kollisionille siirretään pallot erikseen 
 		//(CombRad - ADif) /2 siirtää kumpaakin palloa erilleen toisistaan
 		C.A->position += ((C.CombRad - C.ADif)*0.5f)*(difVector/C.ADif);
-		//C.B->position -= ((C.CombRad - C.ADif)/2)*difVector;
+
 		//Pallojen massa laskettuna r:n mukaan
 		float Am = 4*3.14159*pow(C.A->radius,3)/3;
 		float Bm = 4*3.14159*pow(C.B->radius,3)/3;
+
 		//lasketaan pallojen välinen tangentti
 		tan = sf::Vector2f(-difVector.y, difVector.x);
 		tan_tan = tan.x*tan.x + tan.y*tan.y;
+
+		//lasketaan normaali
 		norm_norm = difVector.x*difVector.x + difVector.y*difVector.y;
 
 		//Lasketaan pallon A uusi nopeus/suunta tangentin avulla
 		Av_tan = (C.vA.x*tan.x) + (C.vA.y*tan.y);
 		C.A->velocity += (Av_tan / tan_tan) * tan;
 		
-		//Lasketaan pallon B uusi nopeus/suunta tangentin avulla
+		//Lasketaan pallon B uusi nopeus/suunta normaalin avulla
 		Bv_tan = (C.vA.x*difVector.x) + (C.vA.y*difVector.y);
 		C.B->velocity += (Bv_tan / norm_norm) * difVector;
 
@@ -101,7 +102,6 @@ void CollisionChecker::applyPhysics(float dt)
 	for(auto it = ballList.begin(); it != ballList.end(); it++)	//käydään listaa palloista läpi
 	{
 		//päivitetään pallojen position arvoja
-		//(*it)->velocity.y += (*it)->g*dt/2;
 		(*it)->movement = sf::Vector2f((*it)->position.x+(*it)->velocity.x*dt,(*it)->position.y+(*it)->velocity.y*dt);
 		(*it)->position = (*it)->movement;
 		(*it)->shape.setPosition((*it)->position);
@@ -110,9 +110,7 @@ void CollisionChecker::applyPhysics(float dt)
 
 void CollisionChecker::CheckCol(Ball* ballA, Ball* ballB)
 {
-	sf::Clock clock;
-	clock.restart();
-	//nimetään kappaleet A:ksi ja B:ksi
+	//nimetään kappaleet ja niiden parametrit A:ksi ja B:ksi
 	const sf::Vector2f posA = ballA->position;
 	const sf::Vector2f velA = ballA->velocity;
 	const float radA = ballA->shape.getRadius();
@@ -122,12 +120,13 @@ void CollisionChecker::CheckCol(Ball* ballA, Ball* ballB)
 
 	//Lasketaan niiden x ja y suuntainen etäisyys 2D avaruudessa
 	const sf::Vector2f DifVector = posA - posB;
+
 	//lasketaan x ja y eroista pituusvektori
 	const float ADif = sqrt(pow(DifVector.x,2) + pow(DifVector.y,2));
+
 	//Lasketaan pallojen yhteen laskettu säde
 	const float CombRad = radA + radB;
-	
-	//std::cout<<"check 1 : "<<clock.restart().asMicroseconds()<<std::endl;
+
 	//katsotaan onko etäisyysvektori pienempi kuin pallojen
 	//yhteisen säteen pituus, jos on niin törmäys on tapahtunut
 	if(ADif < CombRad)
@@ -135,14 +134,13 @@ void CollisionChecker::CheckCol(Ball* ballA, Ball* ballB)
 		//kun törmäys on tapahtunut, lisätään tiedot törmäyksestä collisionList2:lle
 		collisionList2.back().push_back(Collision(ballA, ballB,CombRad, ADif, DifVector, velA, velB));
 	}
-	//std::cout<<"check 2 : "<<clock.restart().asMicroseconds()<<std::endl;
 
 }
 
 void CollisionChecker::CheckWallCol(Ball* ball)
 {
 	
-	/// Y MOVEMENT ///
+	/// Y suunnassa seinän törmäys ///
 	if(ball->position.y > (Scene::windowSize.y-ball->shape.getRadius())) // If touch ground
 	{
 		ball->ColY(-ball->e,Scene::windowSize.y-ball->shape.getRadius());
@@ -151,7 +149,7 @@ void CollisionChecker::CheckWallCol(Ball* ball)
 	{
 		ball->ColY(-ball->e,0+ball->shape.getRadius());
 	}
-	/// X MOVEMENT ///
+	/// X suunnassa seinän törmäys///
 	if(ball->position.x > (Scene::windowSize.x-ball->shape.getRadius())) // If hits left border
 	{
 		ball->ColX(-ball->e, Scene::windowSize.x-ball->shape.getRadius()); 
