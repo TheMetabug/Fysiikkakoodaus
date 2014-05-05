@@ -16,15 +16,12 @@ int main(void)
 		0.0f , 1.2f , 0.0f,
 		0.0f , 0.0f , 1.0f
 	};
-	float matriisi_2[] = 
-	{
-		2.0f , 0.0f , 0.0f,
-		0.0f , 3.0f , 0.0f,
-		0.0f , 0.0f , 5.0f
-	};
 
 	Matrix3 matrix_1(matriisi_1);
-	Matrix3 matrix_2(matriisi_2);
+	Matrix3 matrix_2(
+		2.0f , 0.0f , 0.0f,
+		0.0f , 3.0f , 0.0f,
+		0.0f , 0.0f , 5.0f);
 	Matrix3 matrix_3(matriisi_1);
 	matrix_3.Transpose();
 
@@ -38,12 +35,12 @@ int main(void)
 	cout << "Normalisointi: " << vektor_1.normalize() << endl;
 	
 	cout << "_________________MATRIISI LASKUT__________________" << endl;
-	cout << "Matriisi 1: \n" << matrix_1 << endl<< endl;
-	cout << "Matriisi 2: \n" << matrix_2 << endl<< endl;
-	cout << "Summa: \n" << matrix_1 + matrix_2 << endl<< endl;
+	cout << "Matriisi 1: \n" << matrix_1 << endl << endl;
+	cout << "Matriisi 2: \n" << matrix_2 << endl << endl;
+	cout << "Summa: \n" << matrix_1 + matrix_2 << endl << endl;
 	cout << "Tulo: \n" << matrix_1 * matrix_2 << endl<< endl;
-	cout << "Determinantti: \n" << matrix_1.determ(matrix_2) << endl<< endl;
-	cout << "Tansponointi: \n" << matrix_3 << endl<< endl;
+	cout << "Determinantti: \n" << matrix_1.determ(matrix_2) << endl << endl;
+	cout << "Tansponointi: \n" << matrix_3 << endl << endl;
 
 	//Vector2D* A = new Vector2D(1.f,2.f);
 	//Vector2D* B = new Vector2D(3.f,1.f);

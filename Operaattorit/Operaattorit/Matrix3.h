@@ -9,11 +9,15 @@ class Matrix3
 
 public:
 	Matrix3(const float *data);
+	Matrix3(const float d1,const float d2,const float d3,
+			const float d4,const float d5,const float d6,
+			const float d7,const float d8,const float d9);
 	Matrix3(Matrix3& matrix3);
 	~Matrix3();
 
 	Vector3D determ(Matrix3&);
-	void Transpose();
+	Matrix3 Transpose();
+	Matrix3 Revert();
 	float x,y,z,w,h,g,i,j,k;
 };
 
