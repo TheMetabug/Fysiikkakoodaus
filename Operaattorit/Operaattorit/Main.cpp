@@ -2,6 +2,7 @@
 #include "Vector2D.h"
 #include "Vector3D.h"
 #include "Matrix3.h"
+#include "Matrix4.h"
 
 using namespace std;
 
@@ -19,11 +20,19 @@ int main(void)
 
 	Matrix3 matrix_1(matriisi_1);
 	Matrix3 matrix_2(
-		2.0f , 0.0f , 0.0f,
-		0.0f , 3.0f , 0.0f,
-		0.0f , 0.0f , 5.0f);
-	Matrix3 matrix_3(matriisi_1);
-	matrix_3.Transpose();
+		2.0f , 1.0f , 1.0f,
+		3.0f , 3.0f , 4.0f,
+		1.0f , 2.0f , 5.0f);
+	Matrix4 matrix_3(
+		2.0f , 1.0f , 1.0f, 1.0f,
+		3.0f , 3.0f , 4.0f, 1.0f,
+		1.0f , 2.0f , 5.0f, 1.0f,
+		2.0f , 1.0f , 2.0f, 1.0f);
+	Matrix4 matrix_4(
+		2.0f , 1.0f , 1.0f, 1.0f,
+		3.0f , 3.0f , 4.0f, 1.0f,
+		1.0f , 2.0f , 5.0f, 1.0f,
+		2.0f , 1.0f , 2.0f, 1.0f);
 
 	cout << "_________________VEKTORI3 LASKUT__________________" << endl;
 	cout << "Vektori 1: " << vektor_1 << " Pituus: " << vektor_1.length() << endl;
@@ -39,8 +48,12 @@ int main(void)
 	cout << "Matriisi 2: \n" << matrix_2 << endl << endl;
 	cout << "Summa: \n" << matrix_1 + matrix_2 << endl << endl;
 	cout << "Tulo: \n" << matrix_1 * matrix_2 << endl<< endl;
-	cout << "Determinantti: \n" << matrix_1.determ(matrix_2) << endl << endl;
-	cout << "Tansponointi: \n" << matrix_3 << endl << endl;
+	cout << "Determinantti: \n" << matrix_1.determ() << endl << endl;
+	cout << "Tansponointi: \n" << matrix_2.Transpose() << endl << endl;
+	cout << "Kaanteismatriisi: \n" << matrix_1.Revert() << endl << endl << endl;
+	cout << "Matriisi 3 (4x4): \n" << matrix_3 << endl << endl;
+	cout << "Determinantti: \n" << matrix_3.determ() << endl << endl;
+	cout << "Kaanteismatriisi: \n" << matrix_3.Inverse() << endl << endl;
 
 	//Vector2D* A = new Vector2D(1.f,2.f);
 	//Vector2D* B = new Vector2D(3.f,1.f);

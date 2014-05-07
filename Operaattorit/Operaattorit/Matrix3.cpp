@@ -20,6 +20,13 @@ Matrix3::Matrix3(Matrix3& mat)
 //Destructor
 Matrix3::~Matrix3(){
 }
+//Matrix * scale
+Matrix3 operator*(const Matrix3& M, const float S ){
+	return Matrix3
+	(M.x*S, M.y*S, M.z*S,
+	 M.w*S, M.h*S, M.g*S,
+	 M.i*S, M.j*S, M.k*S );
+}
 //Matrix * vector3D
 Vector3D operator*(const Matrix3& M, const Vector3D V ){
 	return Vector3D(
@@ -51,12 +58,8 @@ Matrix3 operator+(const Matrix3& M1,const Matrix3& M2){
 	return Matrix3(matrix);
 }
 //Matrices determination
-Vector3D Matrix3::determ(Matrix3&){
-	return Vector3D(
-					x*(h*k-g*j),
-					y*(w*k-g*i),
-					z*(w*j-h*i)
-					);
+float Matrix3::determ(){
+	return x*h*k + w*j*z + i*y*g - x*j*g - i*h*z - w*y*k;
 }
 //Matrices transpose
 Matrix3 Matrix3::Transpose(){
@@ -70,7 +73,12 @@ Matrix3 Matrix3::Transpose(){
 //Matrices revertion
 Matrix3 Matrix3::Revert()
 {
+	float M = determ();
 
+	Matrix3 result(	h*k-g*j,  z*j-y*z,  y*g-z*h,
+					g*i-w*z,  x*k-z*i,  z*w-x*g,
+					w*j-h*i,  y*i-x*j,  x*h-y*w );
+	return result*(1/M);
 }
 //Override function to print matrix using "std::cout << matrix"
 std::ostream & operator<<(std::ostream &out, const Matrix3 &mat3){
