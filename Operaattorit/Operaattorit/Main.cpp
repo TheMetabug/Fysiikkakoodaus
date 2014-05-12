@@ -29,10 +29,10 @@ int main(void)
 		1.0f , 2.0f , 5.0f, 1.0f,
 		2.0f , 1.0f , 2.0f, 1.0f);
 	Matrix4 matrix_4(
-		2.0f , 1.0f , 1.0f, 1.0f,
-		3.0f , 3.0f , 4.0f, 1.0f,
-		1.0f , 2.0f , 5.0f, 1.0f,
-		2.0f , 1.0f , 2.0f, 1.0f);
+		1.0f , 3.0f , 2.0f, 4.0f,
+		1.0f , 1.0f , 2.0f, 2.0f,
+		3.0f , 1.0f , 2.0f, 1.0f,
+		1.0f , 2.0f , 2.0f, 3.0f);
 
 	cout << "_________________VEKTORI3 LASKUT__________________" << endl;
 	cout << "Vektori 1: " << vektor_1 << " Pituus: " << vektor_1.length() << endl;
@@ -51,9 +51,16 @@ int main(void)
 	cout << "Determinantti: \n" << matrix_1.determ() << endl << endl;
 	cout << "Tansponointi: \n" << matrix_2.Transpose() << endl << endl;
 	cout << "Kaanteismatriisi: \n" << matrix_1.Revert() << endl << endl << endl;
+
 	cout << "Matriisi 3 (4x4): \n" << matrix_3 << endl << endl;
-	cout << "Determinantti: \n" << matrix_3.determ() << endl << endl;
-	cout << "Kaanteismatriisi: \n" << matrix_3.Inverse() << endl << endl;
+	cout << "Matriisi 4 (4x4): \n" << matrix_4 << endl << endl;
+	cout << "Skalaarilla kertominen: \n" << matrix_3*3 << endl << endl;
+	cout << "Vektorilla kertominen: \n" << matrix_3*vektor_2 << endl << endl;
+	cout << "Yhteenlasku: \n" << matrix_3+matrix_4 << endl << endl;
+	cout << "Kertolasku: \n" << matrix_3*matrix_4 << endl << endl;
+	cout << "Determinantti: (4x4) \n" << matrix_3.determ() << endl << endl;
+	cout << "Kaanteismatriisi: (4x4) \n" << matrix_3.Inverse() << endl << endl;
+
 
 	//Vector2D* A = new Vector2D(1.f,2.f);
 	//Vector2D* B = new Vector2D(3.f,1.f);

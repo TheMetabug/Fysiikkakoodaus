@@ -40,9 +40,9 @@ Vector3D operator*(const Matrix4& M, const Vector3D W ){
 }
 Matrix4 operator*(const Matrix4& M,const Matrix4& W){
 	return Matrix4( (M.a*W.a + M.b*W.e + M.c*W.i + M.d*W.m), (M.a*W.b + M.b*W.f + M.c*W.j + M.d*W.n), (M.a*W.c + M.b*W.g + M.c*W.k + M.d*W.o), (M.a*W.d + M.b*W.h + M.c*W.l + M.d*W.p),
-					(M.a*W.a + M.b*W.e + M.c*W.i + M.d*W.m), (M.a*W.b + M.b*W.f + M.c*W.j + M.d*W.n), (M.a*W.c + M.b*W.g + M.c*W.k + M.d*W.o), (M.a*W.d + M.b*W.h + M.c*W.l + M.d*W.p),
-					(M.a*W.a + M.b*W.e + M.c*W.i + M.d*W.m), (M.a*W.b + M.b*W.f + M.c*W.j + M.d*W.n), (M.a*W.c + M.b*W.g + M.c*W.k + M.d*W.o), (M.a*W.d + M.b*W.h + M.c*W.l + M.d*W.p),
-					(M.a*W.a + M.b*W.e + M.c*W.i + M.d*W.m), (M.a*W.b + M.b*W.f + M.c*W.j + M.d*W.n), (M.a*W.c + M.b*W.g + M.c*W.k + M.d*W.o), (M.a*W.d + M.b*W.h + M.c*W.l + M.d*W.p));
+					(M.e*W.a + M.f*W.e + M.g*W.i + M.h*W.m), (M.e*W.b + M.f*W.f + M.g*W.j + M.h*W.n), (M.e*W.c + M.f*W.g + M.g*W.k + M.h*W.o), (M.e*W.d + M.f*W.h + M.g*W.l + M.h*W.p),
+					(M.i*W.a + M.j*W.e + M.k*W.i + M.l*W.m), (M.i*W.b + M.j*W.f + M.k*W.j + M.l*W.n), (M.i*W.c + M.j*W.g + M.k*W.k + M.l*W.o), (M.i*W.d + M.j*W.h + M.k*W.l + M.l*W.p),
+					(M.m*W.a + M.n*W.e + M.o*W.i + M.p*W.m), (M.m*W.b + M.n*W.f + M.o*W.j + M.p*W.n), (M.m*W.c + M.n*W.g + M.o*W.k + M.p*W.o), (M.m*W.d + M.n*W.h + M.o*W.l + M.p*W.p));
 }
 float Matrix4::determ(){
 	return ( a*f*k*p-a*f*l*o-a*g*j*p+a*g*l*n+a*h*j*o-a*h*k*n
