@@ -3,6 +3,7 @@
 #include "Vector3D.h"
 #include "Matrix3.h"
 #include "Matrix4.h"
+#include "Quaternion.h"
 
 using namespace std;
 
@@ -33,6 +34,8 @@ int main(void)
 		1.0f , 1.0f , 2.0f, 2.0f,
 		3.0f , 1.0f , 2.0f, 1.0f,
 		1.0f , 2.0f , 2.0f, 3.0f);
+	Quaternion quaternion_1(2.f,3.f,4.f,5.f);
+	Quaternion quaternion_2(1.f,1.f,2.f,2.f);
 
 	cout << "_________________VEKTORI3 LASKUT__________________" << endl;
 	cout << "Vektori 1: " << vektor_1 << " Pituus: " << vektor_1.length() << endl;
@@ -59,8 +62,17 @@ int main(void)
 	cout << "Yhteenlasku: \n" << matrix_3+matrix_4 << endl << endl;
 	cout << "Kertolasku: \n" << matrix_3*matrix_4 << endl << endl;
 	cout << "Determinantti: (4x4) \n" << matrix_3.determ() << endl << endl;
-	cout << "Kaanteismatriisi: (4x4) \n" << matrix_3.Inverse() << endl << endl;
+	cout << "Kaanteismatriisi: (4x4) \n" << matrix_3.Inverse() << endl << endl << endl;
 
+	cout << "_________________KVATERNIO LASKUT__________________" << endl;
+	cout << "Kvaternio 1: \n" << quaternion_1 << endl << endl;
+	cout << "Kvaternio 2: \n" << quaternion_2 << endl << endl;
+	cout << "Kvaternioiden yhteenlasku: \n" << quaternion_1+quaternion_2 << endl << endl;
+	cout << "Kvaternioiden erotus: \n" << quaternion_1-quaternion_2 << endl << endl;
+	cout << "Kvaternioiden kertolasku: \n" << (quaternion_1*quaternion_2) << endl << endl;
+	cout << "Kvaternio 1:sen normalisointi: \n" << quaternion_1.normalize() << endl << endl;
+	Matrix3 matrix_5 = matrix_1; matrix_5.setOrientation(quaternion_1);
+	cout << "Kvaternio 1:sen ja matriisi 1:sen orientaatio:  \n" << matrix_5 << endl << endl;
 
 	//Vector2D* A = new Vector2D(1.f,2.f);
 	//Vector2D* B = new Vector2D(3.f,1.f);

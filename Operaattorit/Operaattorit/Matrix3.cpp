@@ -80,6 +80,20 @@ Matrix3 Matrix3::Revert()
 					w*j-h*i,  y*i-x*j,  x*h-y*w );
 	return result*(1/M);
 }
+//Set orientation
+void Matrix3::setOrientation(const Quaternion &q)
+{
+	float n = q.w*q.w + q.x*q.x + q.y*q.y + q.z*q.z;
+	const float s = 2/n;
+	const float wx = s * q.w * q.x; const float wy = s * q.w * q.y; const float wz = s * q.w * q.z;
+	const float xx = s * q.x * q.x; const float xy = s * q.x * q.y; const float xz = s * q.x * q.z;
+	const float yy = s * q.y * q.y; const float yz = s * q.y * q.z; const float zz = s * q.z * q.z;
+	
+	x = 1 - (yy + zz);	y = xy - wz;		z = xz + wy;
+    w = xy + wz;		h = 1 - (xx + zz);	g = yz - wx; 
+    i = xz - wy;        j = yz + wx;		k = 1 - (xx + yy);
+
+}
 //Override function to print matrix using "std::cout << matrix"
 std::ostream & operator<<(std::ostream &out, const Matrix3 &mat3){
 	out << mat3.x << "	" << mat3.y << "	" << mat3.z << std::endl

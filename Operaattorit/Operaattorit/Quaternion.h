@@ -3,7 +3,7 @@
 #include "Vector3D.h"
 class Quaternion
 {
-	friend float operator*(const float scale,const Quaternion &quat);
+	friend float operator*(const Quaternion &quat1,const Quaternion &quat2);
 	friend Quaternion operator+(const Quaternion &q1,const Quaternion &q2);
 	friend Quaternion operator-(const Quaternion &q1,const Quaternion &q2);
 	friend std::ostream & operator<<(std::ostream &out, const Quaternion &quat);

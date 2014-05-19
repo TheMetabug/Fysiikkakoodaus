@@ -47,11 +47,8 @@
     <ClCompile Include="Matrix4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Quaternion.h">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Quaternion.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

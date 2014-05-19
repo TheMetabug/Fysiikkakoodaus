@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector3D.h"
+#include "Quaternion.h"
 class Matrix3
 {
 	friend Matrix3 operator*(const Matrix3& M, const float S );
@@ -20,6 +21,7 @@ public:
 
 	Matrix3 Transpose();
 	Matrix3 Revert();
+	void setOrientation(const Quaternion &q);
 	float	x,y,z,
 			w,h,g,
 			i,j,k;

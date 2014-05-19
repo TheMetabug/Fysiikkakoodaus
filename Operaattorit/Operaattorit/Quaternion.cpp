@@ -29,11 +29,12 @@ Quaternion operator-(const Quaternion &q,const Quaternion &k){
 //Normalize
 float Quaternion::normalize(){
 	float length = sqrt(x*x + y*y + z*z + w*w);
-	float M = (1 / length);
-	x *= M;
-	y *= M;
-	z *= M;
-	w *= M;
+	//float M = (1 / length);
+	//x *= M;
+	//y *= M;
+	//z *= M;
+	//w *= M;
+	return length;
 }
 //Rotate vector
 Quaternion Quaternion::rotateVec(const Vector3D &v,const float angle){
@@ -46,6 +47,7 @@ Quaternion Quaternion::rotateVec(const Vector3D &v,const float angle){
 	y = y*sin_halv;
 	z = z*sin_halv;
 	w = cos(halv);
+	return Quaternion(w,x,y,z);
 }
 //Print
 std::ostream & operator<<(std::ostream &out, const Quaternion &q){
